@@ -26,6 +26,16 @@ Based on Airflow version 2.0
     --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.5.1/constraints-3.7.txt"
     ```
     Change constraints-3.7.txt to the python version you are using (Example: constraints-3.10.txt)
+5. Set up environment variables
+    ```
+    export AIRFLOW_HOME=.
+    airflow db init
+    ```
+    This will create SQLite Database, lock folder, and configuration file
+6. Start Airflow server
+    ```
+    airflow webserver -p {Port_Number}
+    ```
 
 ## FIXES
     As of today(Feb 20, 2023), Airflow does not support Python 3.11  
