@@ -12,7 +12,8 @@
 4. go to https://aka.ms/wsl2kernel and download the Linux kernel update package
    Install the software you downloaded in that page
 
-5. Set up Username and Password in Ubuntu
+5. Set up Username and Password in Ubuntu<br/><br/>
+
 
 ### How to run Apache Airflow in WSL Ubuntu (Windows)
 1. In Ubuntu environment, type `python3 --version` to verify your python version (> 3.6)
