@@ -35,6 +35,23 @@ Based on Airflow version 2.0
     - DAG Run
       Instantiation of a DAG, containing task instances that run for a specific Execution Date
 
+### Task Lifecycle
+    - no_status: Scheduler created empty task instance
+    - scheduled: Scheduler determined task instance needs to run
+    - upstream_failed: The task's upstream task failed
+    - skipped: Task is skipped
+    - queued: Scheduler sent task to executor to run on the queue
+    - running: Worker picked up a task and is now running it
+    - success: Task completed without an error
+    - failed: Task failed
+    - shutdown: Task run has been shutdown
+    - up_for_retry: Rerun the task
+    - up_for_reschedule: reschedule task every certain time interval
+
+    Successful Task Lifecycle Example
+      - no_status -> Scheduler[scheduled] -> Executor[queued] -> Worker[running] -> success
+
+
 ## FIXES
     1.  As of today(Feb 20, 2023), Airflow does not support Python 3.11  
         Download the different python version and use that python to create virtual environment  
