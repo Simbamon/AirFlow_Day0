@@ -93,3 +93,9 @@ Based on Airflow version 2.0
     2.  ModuleNotFoundError: No module named 'pwd'
         pwd is not available on Windows environment
         You can either use WSL or running the Airflow in a Docker container
+    
+    3.  Airflow Dag status is Success, but task states Dag has yet to run
+        The start date should be yesterday. If you set the start date as today or right now,
+        which is always >= the dag_run start_date. Choose the minimum date of your runs,
+        and if you don't have one, you can use the yesterday date
+        Check https://stackoverflow.com/questions/73622833/airflow-dag-status-is-success-but-task-states-dag-has-yet-to-run
