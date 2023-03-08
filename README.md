@@ -87,6 +87,10 @@ Successful Task Lifecycle Example
   - no_status -> Scheduler[scheduled] -> Executor[queued] -> Worker[running] -> success
 <br><br/>
 
+## Cron Expression
+A CRON expression is a string comprising five fields separated by white space that represents a set of times
+  - Normally as a schedule to execute some routine
+  https://youtu.be/K9AnJ9_ZAXE?t=3729 <- *Write the table later
 ## FIXES
 1.  As of today(Feb 20, 2023), Airflow does not support Python 3.11  
     Download the different python version and use that python to create virtual environment  
