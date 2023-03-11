@@ -1,6 +1,6 @@
 # Windows(WSL) Setup
 
-### How to install WSL Ubuntu on your machine
+## How to install WSL Ubuntu on your machine
 1. In search, type 'Turn Windows features on or off'
 
 2. In the box, check these two:  
@@ -15,7 +15,7 @@
 5. Set up Username and Password in Ubuntu<br/><br/>
 
 
-### How to run Apache Airflow in WSL Ubuntu (Windows)
+## How to run Apache Airflow in WSL Ubuntu (Windows)
 1. In Ubuntu environment, type `python3 --version` to verify your python version (> 3.6)
 
 2. Run these commands to add packages that will help pip work
@@ -37,10 +37,10 @@
    - `airflow webserver -p {PORT_NUMBER}`
 
 ## Fixes
-    1. The scheduler does not appear to be running. 
-       The DAGs list may not update, and new tasks will not be scheduled.
-       
-       Solution:
-       In a new terminal, run:
-       $ airflow scheduler
-       and leave it open
+1. The scheduler does not appear to be running. 
+   The DAGs list may not update, and new tasks will not be scheduled.
+   
+   Solution:
+   In a new terminal, run:
+   $ airflow scheduler
+   and leave it open

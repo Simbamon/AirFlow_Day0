@@ -89,8 +89,19 @@ Successful Task Lifecycle Example
 
 ## Cron Expression
 A CRON expression is a string comprising five fields separated by white space that represents a set of times
-  - Normally as a schedule to execute some routine
-  https://youtu.be/K9AnJ9_ZAXE?t=3729 <- *Write the table later
+  - Normally as a schedule to execute some routine  
+
+| Preset | Definition | Cron|
+|:-----|:---------|:---|
+| `None` | Don't scehdule, use for exclusively "externally triggered" DAGs | |
+| `@once` | Schedule once and only once | |
+| `@hourly` | Run once an hour at the beginning of the hour | `0 * * * *` |
+| `@daily` | Run once a day at midnight | `0 0 * * *` |
+| `@weekly` | Run once a week at midnight on Sunday morning| `0 0 * * 0` |
+| `@monthly` | Run once a month at midnight of the first day of the month| `0 0 1 * *` |
+| `@yearly` | Run once a year at midnight of January 1 | `0 0 1 1 *` |
+<br><br/>
+
 ## FIXES
 1.  As of today(Feb 20, 2023), Airflow does not support Python 3.11  
     Download the different python version and use that python to create virtual environment  

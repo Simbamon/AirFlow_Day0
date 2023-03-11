@@ -1,6 +1,6 @@
 # MacOS Setup
 
-### How to run Apache Airflow in Python Environment (Mac)
+## How to run Apache Airflow in Python Environment (Mac)
 1. Check the python version `python --version` [This demo is based on Python 3.10.10]
 2. Create the python environment
     ```
