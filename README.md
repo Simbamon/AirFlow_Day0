@@ -100,6 +100,7 @@ A CRON expression is a string comprising five fields separated by white space th
 | `@weekly` | Run once a week at midnight on Sunday morning| `0 0 * * 0` |
 | `@monthly` | Run once a month at midnight of the first day of the month| `0 0 1 * *` |
 | `@yearly` | Run once a year at midnight of January 1 | `0 0 1 1 *` |
+
 <br><br/>
 
 ## FIXES
