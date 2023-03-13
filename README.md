@@ -1,6 +1,6 @@
 # Apache Airflow
 
-Based on https://www.youtube.com/watch?v=K9AnJ9_ZAXE
+Based on [this video](https://www.youtube.com/watch?v=K9AnJ9_ZAXE)  
 Based on Airflow version 2.0
 <br><br/>
 
@@ -11,11 +11,9 @@ Based on Airflow version 2.0
 <br><br/>
 
 ## How to Install and run Apache Airflow (Docker)
-Download Docker in your machine
+[Download](https://airflow.apache.org/docs/apache-airflow/stable/howto/docker-compose/index.html#running-airflow-in-docker) Docker in your machine
 
-https://airflow.apache.org/docs/apache-airflow/stable/howto/docker-compose/index.html#running-airflow-in-docker
-
-To get yaml file, run this command
+To get yaml file, run this command  
 `curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.5.1/docker-compose.yaml'`
 
 To run Airflow locally in docker:
@@ -37,12 +35,50 @@ To run Airflow locally in docker:
         airflow-init_1       | 2.5.1
         start_airflow-init_1 exited with code 0
   7. Start the service
-      `docker compose up -d`
+      `docker compose up -d`  
       `-d` is to run the service in detached mode, running containers in background
   8. run this command to see the which containers are running:
       $ docker ps
 
 Check the OS folder for deatil (MacOS and Windows included)
+<br><br/>
+
+## Installing Python Packages
+
+|      | Extending | Customizing|
+|:-----|:----------|:--------|
+| Can be built without airflow sources | Yes | No |
+| Uses familiar 'FROM' pattern of image building | Yes | No |
+| Requires only basic knowledge about images | Yes | No |
+| Builds quickly | Yes | No |
+| Produces image heavily optimized for size | No | Yes |
+| Can build from custom airflow sources (forks) | No | Yes |
+| Can build on air-gapped environment | No | Yes |
+
+Image Extending:
+  1. Write the Dockerfile
+  2. Build that Dockerfile and tag it  
+     `docker build {DOCKERFILE_LOCATION} --tag {EXTENDED_IMAGE_TAG}`
+  3. In docker yaml file, change the `AIRFLOW_IMAGE_NAME` to the image you just built with Dockerfile  
+     `image: ${AIRFLOW_IMAGE_NAME:-{EXTENDED_IMAGE_TAG}}` <- Check docker-compose.yaml line 49
+  4. Restart the Airflow  
+     `docker compose up -d --no-deps --build airflow-webesrver airflow-scheduler`
+
+Image Customizing:
+  1. Grab [Apache Airflow](https://github.com/apache/airflow) git repository to your machine (Different directory)
+     `git clone https://github.com/apache/airflow`
+  2. In docker-context-files directory, make `requirements.txt` file  
+      in requirements.txt file(Example):
+      ```
+      scikit-leran==0.24.2
+      matplotlib==3.3.3
+      ```
+  3. Build the Dockerfile from Github repo  
+     `docker build {GITHUB_REPO_DOCKERFILE_LOCATION} --build-arg AIRFLOW_VERSION='{AIRFLOW_VERSION}' --tag {CUSTOMIZED_IMAGE_TAG}`
+  4. Come back to original docker yaml file, change the `AIRFLOW_IMAGE_NAME` to the image you just built from Github repo  
+     `image: ${AIRFLOW_IMAGE_NAME:-{CUSTOMIZED_IMAGE_TAG}}` <- Check docker-compose.yaml line 49
+  5. Restart the Airflow  
+     `docker compose up -d --no-deps --build airflow-webesrver airflow-scheduler`
 <br><br/>
 
 ## Manage Workflows
@@ -105,7 +141,7 @@ A CRON expression is a string comprising five fields separated by white space th
 ## FIXES
 1.  As of today(Feb 20, 2023), Airflow does not support Python 3.11  
     Download the different python version and use that python to create virtual environment  
-    Check https://www.youtube.com/watch?v=-TZfH7r33CQ for detail
+    Check [this video](https://www.youtube.com/watch?v=-TZfH7r33CQ) for detail
 
     ${Different_Python_Directory} -m venv {VENV Name}
 
@@ -117,4 +153,4 @@ A CRON expression is a string comprising five fields separated by white space th
     The start date should be yesterday. If you set the start date as today or right now,
     which is always >= the dag_run start_date. Choose the minimum date of your runs,
     and if you don't have one, you can use the yesterday date
-    Check https://stackoverflow.com/questions/73622833/airflow-dag-status-is-success-but-task-states-dag-has-yet-to-run
+    Check this [Stackoverflow case](https://stackoverflow.com/questions/73622833/airflow-dag-status-is-success-but-task-states-dag-has-yet-to-run)
