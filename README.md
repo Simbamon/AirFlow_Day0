@@ -58,14 +58,14 @@ Check the OS folder for deatil (MacOS and Windows included)
 Image Extending:
   1. Write the Dockerfile
   2. Build that Dockerfile and tag it  
-     `docker build {DOCKERFILE_LOCATION} --tag {EXTENDED_IMAGE_TAG}`
+     `docker build {DOCKERFILE_LOCATION} --tag {EXTENDED_IMAGE_TAG:VERSION}`
   3. In docker yaml file, change the `AIRFLOW_IMAGE_NAME` to the image you just built with Dockerfile  
-     `image: ${AIRFLOW_IMAGE_NAME:-{EXTENDED_IMAGE_TAG}}` <- Check docker-compose.yaml line 49
+     `image: ${AIRFLOW_IMAGE_NAME:-{EXTENDED_IMAGE_TAG:VERSION}}` <- Check docker-compose.yaml line 49
   4. Restart the Airflow  
      `docker compose up -d --no-deps --build airflow-webesrver airflow-scheduler`
 
 Image Customizing:
-  1. Grab [Apache Airflow](https://github.com/apache/airflow) git repository to your machine (Different directory)
+  1. Grab [Apache Airflow](https://github.com/apache/airflow) git repository to your machine (Different directory)  
      `git clone https://github.com/apache/airflow`
   2. In docker-context-files directory, make `requirements.txt` file  
       in requirements.txt file(Example):
@@ -74,9 +74,9 @@ Image Customizing:
       matplotlib==3.3.3
       ```
   3. Build the Dockerfile from Github repo  
-     `docker build {GITHUB_REPO_DOCKERFILE_LOCATION} --build-arg AIRFLOW_VERSION='{AIRFLOW_VERSION}' --tag {CUSTOMIZED_IMAGE_TAG}`
+     `docker build {GITHUB_REPO_DOCKERFILE_LOCATION} --build-arg AIRFLOW_VERSION='{AIRFLOW_VERSION}' --tag {CUSTOMIZED_IMAGE_TAG:VERSION}`
   4. Come back to original docker yaml file, change the `AIRFLOW_IMAGE_NAME` to the image you just built from Github repo  
-     `image: ${AIRFLOW_IMAGE_NAME:-{CUSTOMIZED_IMAGE_TAG}}` <- Check docker-compose.yaml line 49
+     `image: ${AIRFLOW_IMAGE_NAME:-{CUSTOMIZED_IMAGE_TAG:VERSION}}` <- Check docker-compose.yaml line 49
   5. Restart the Airflow  
      `docker compose up -d --no-deps --build airflow-webesrver airflow-scheduler`
 <br><br/>
@@ -138,6 +138,13 @@ A CRON expression is a string comprising five fields separated by white space th
 | `@yearly` | Run once a year at midnight of January 1 | `0 0 1 1 *` |
 
 
+## Database Connection
+You can add third-party databases (e.g. MS SQL Server, PostgreSQL, etc.) to the Airflow
+  1. Go to Admin -> Connection
+  2. Click the + Sign
+  3. Select the Connection Type (MS SQL Server or PostgreSQL)
+  4. Type Host, Schema, Login(Username), Password, and Port
+
 ## FIXES
 1.  As of today(Feb 20, 2023), Airflow does not support Python 3.11  
     Download the different python version and use that python to create virtual environment  
@@ -152,5 +159,5 @@ A CRON expression is a string comprising five fields separated by white space th
 3.  Airflow Dag status is Success, but task states Dag has yet to run
     The start date should be yesterday. If you set the start date as today or right now,
     which is always >= the dag_run start_date. Choose the minimum date of your runs,
-    and if you don't have one, you can use the yesterday date
+    and if you don't have one, you can use the yesterday date  
     Check this [Stackoverflow case](https://stackoverflow.com/questions/73622833/airflow-dag-status-is-success-but-task-states-dag-has-yet-to-run)
